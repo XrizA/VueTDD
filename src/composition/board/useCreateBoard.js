@@ -11,9 +11,13 @@ export default function (projects) {
     await https("post", `/projects/${projects[0].projectId}/boards`, {
       projectId: projects[0].projectId,
       name: newBoardName,
-    }).then((response) => {
-      boardId = response.data.id;
-    });
+    })
+      .then((response) => {
+        boardId = response.data.id;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     boards.value.push(
       reactive({ boardId: boardId, boardName: newBoardName.value })
